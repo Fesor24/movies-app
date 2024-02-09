@@ -36,7 +36,7 @@ public class MovieService : IMovieService
         {
             if(response.Error is MovieSearchErrorResult errorResult)
             {
-                Error err = new(string.Empty, errorResult.Message, errorResult.Error);
+                Error err = new(string.Empty, errorResult.Message, errorResult.Error ??= string.Empty);
 
                 return err;
             }
