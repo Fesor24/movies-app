@@ -1,4 +1,5 @@
 using Movies.API.Extensions;
+using Movies.API.Middleware;
 using Movies.Application;
 using Movies.Domain.Models;
 using Movies.Infrastructure;
@@ -11,7 +12,21 @@ builder.Services.AddInfrastructureServices()
 builder.Services.Configure<ImdbCredentials>(
     builder.Configuration.GetSection(ImdbCredentials.CONFIGURATION));
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors("CorsPolicy");
 
 app.RegisterEndpoints();
 
