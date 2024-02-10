@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Movies.Domain.Models;
 public class MovieItemSearchResult
@@ -23,10 +19,14 @@ public class MovieItemSearchResult
     public string Poster { get; set; }
     public List<Ratings> Ratings { get; set; }
     public string Metascore { get; set; }
+    [JsonPropertyName("imdbRating")]
     public string ImdbRating { get; set; }
+    [JsonPropertyName("imdbVotes")]
     public string ImdbVotes { get; set; }
+    [JsonPropertyName("imdbID")]
     public string ImdbId { get; set; }
     public string Type { get; set; }
+    [JsonPropertyName("DVD")]
     public string Dvd { get; set; }
     public string BoxOffice { get; set; }
     public string Production { get; set; }
