@@ -1,0 +1,47 @@
+<div class="container mt-8 px-12" *ngIf="movieDetail; else nomovie">
+  <h3 class="font-bold text-xl">{{movieDetail.title}}</h3>
+  <div class="flex space-x-5">
+    <div class="py-3">
+      <img [src]="movieDetail.poster" class="h-[25rem] w-[23rem]" [alt]="movieDetail.title" />
+    </div>
+    <div class="py-3 flex flex-col space-y-2">
+      <p class="font-semibold">Awards: <span class="font-normal">{{movieDetail.awards}}</span></p>
+      <p class="font-semibold">Actors: <span class="font-normal">{{movieDetail.actors}}</span></p>
+      <p class="font-semibold">Director: <span class="font-normal">{{movieDetail.director}}</span></p>
+      <p class="font-semibold">Writer: <span class="font-normal">{{movieDetail.writer}}</span></p>
+      <p class="font-semibold">Release Date: <span class="font-normal">{{movieDetail.released}}</span></p>
+      <p class="font-semibold">Runtime: <span class="font-normal">{{movieDetail.runtime}}</span></p>
+      <p class="font-semibold">Genre: <span class="font-normal">{{movieDetail.genre}}</span></p>
+      <p class="font-semibold">Type: <span class="font-normal">{{movieDetail.type}}</span></p>
+      <p class="font-semibold">Language: <span class="font-normal">{{movieDetail.language}}</span></p>
+      <p class="font-semibold">Country: <span class="font-normal">{{movieDetail.country}}</span></p>
+      <p class="font-semibold">IMDB Vote: <span class="font-normal">{{movieDetail.imdbVotes}}</span></p>
+      <p class="font-semibold">IMDB Ratings: <span class="font-normal">{{movieDetail.imdbRating}}</span></p>
+
+    </div>
+    <div></div>
+  </div>
+  <div class="py-6">
+    <p class="text-xl font-semibold py-3 bg-primary-200 rounded-md shadow-sm px-5">Plot</p>
+    <p>{{movieDetail.plot}}</p>
+  </div>
+
+  <div class="py-6" *ngIf="movieDetail.ratings.length > 0">
+    <p class="text-xl font-semibold py-3 bg-primary-200 rounded-md shadow-sm px-5">Ratings</p>
+    <div *ngFor="let rating of movieDetail.ratings;let i = index">
+      <div class="flex space-x-3 py-2">
+        <p>{{i + 1}}.</p>
+        <div>
+          <p><span class="font-medium">Source:</span> {{rating.source}}</p>
+          <p><span class="font-medium">Value: </span>{{rating.value}}</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template class="container mt-8" #nomovie>
+  <p>No details for this movie found</p>
+</ng-template>
