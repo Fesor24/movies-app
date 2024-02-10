@@ -18,6 +18,37 @@ public class MovieService : IMovieService
         _url = credentials.Value.BaseUrl + $"?apiKey={credentials.Value.ApiKey}";
     }
 
+    public async Task<Result<MovieItemSearchResult, Error>> GetMovieByImdbId(string imdbId)
+    {
+        _url += $"&i={imdbId}";
+
+        var response = await _httpClient.SendAsync<MovieItemSearchResult, MovieSearchErrorResult>(
+            new Domain.Shared.HttpRequestMessage
+            {
+                Headers = new Dictionary<string, string>(),
+                Method = HttpMethod.Get,
+                Uri = _url
+            });
+
+        if (response.IsSuccess && response.Value.Response == "True") return response.Value;
+
+        else
+        {
+            if (response.IsSuccess)
+                return new Error(string.Empty, "An error occurred while getting this movie",
+                    "Possible reasons: Incorrect Imdb Id");
+
+            if (response.Error is MovieSearchErrorResult errorResult)
+            {
+                Error err = new(string.Empty, errorResult.Message, errorResult.Error ??= string.Empty);
+
+                return err;
+            }
+
+            return response.Error;
+        }
+    }
+
     public async Task<Result<MovieSearchResult, Error>> Search(string searchTerm)
     {
         _url += $"&s={searchTerm}";
@@ -30,10 +61,13 @@ public class MovieService : IMovieService
             Uri = _url
         });
 
-        if (response.IsSuccess) return response.Value;
+        if (response.IsSuccess && response.Value.Response == "True") return response.Value;
 
         else
         {
+            if (response.IsSuccess)
+                return new Error(string.Empty, "An error occurred while searching for this movie");
+
             if(response.Error is MovieSearchErrorResult errorResult)
             {
                 Error err = new(string.Empty, errorResult.Message, errorResult.Error ??= string.Empty);
