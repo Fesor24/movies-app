@@ -22,7 +22,7 @@ internal sealed class SearchMovieRequestHandler :
     public async Task<Result<SearchMovieResponse, Error>> Handle(SearchMovieRequest request, 
         CancellationToken cancellationToken)
     {
-        var res = await _movieService.Search(request.SearchTerm);
+        var res = await _movieService.Search(request.SearchTerm, request.Page);
 
         if (res.IsFailure)
             return res.Error;
