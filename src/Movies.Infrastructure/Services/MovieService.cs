@@ -49,9 +49,9 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task<Result<MovieSearchResult, Error>> Search(string searchTerm)
+    public async Task<Result<MovieSearchResult, Error>> Search(string searchTerm, int page)
     {
-        _url += $"&s={searchTerm}";
+        _url += $"&s={searchTerm}&page={page}";
 
         var response = await _httpClient.SendAsync<MovieSearchResult, MovieSearchErrorResult>
             (new Domain.Shared.HttpRequestMessage
