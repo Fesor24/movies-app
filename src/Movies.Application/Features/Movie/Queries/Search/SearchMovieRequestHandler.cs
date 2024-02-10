@@ -2,9 +2,13 @@
 using MediatR;
 using Movies.Domain.Primitives;
 using Movies.Domain.Services;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleToAttribute("Movies.UnitTests")]
 
 namespace Movies.Application.Features.Movie.Queries.Search;
-internal sealed class SearchMovieRequestHandler : IRequestHandler<SearchMovieRequest, Result<SearchMovieResponse, Error>>
+internal sealed class SearchMovieRequestHandler : 
+    IRequestHandler<SearchMovieRequest, Result<SearchMovieResponse, Error>>
 {
     private readonly IMovieService _movieService;
     private readonly IMapper _mapper;
