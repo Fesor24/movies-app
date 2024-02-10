@@ -1,0 +1,65 @@
+<div class="container pt-6 px-10">
+  <div class="flex items-center justify-between py-8">
+    <ng-container *ngIf="movieSearch && movieSearch.movies.length > 0;else search">
+      <p>Movies related to <span class="font-medium text-primary-500">'{{searchTermDisplay}}'</span></p>
+    </ng-container>
+    <ng-template #search>
+      <p class="font-medium">Search for your favorite movies <i
+          class="fa-solid fa-right-long text-primary-400 text-xl"></i></p>
+    </ng-template>
+    <div class="flex flex-col justify-end items-end space-y-2 lg:flex-row lg:space-y-0 space-x-2">
+      <div class="dropdown">
+        <input class="w-[200px] md:w-[280px] h-[30px] rounded-md shadow-md py-6 px-10 focus:outline-primary-700"
+          placeholder="Search movie by title" [(ngModel)]="searchTerm" tabindex="0" />
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-1">
+          <li *ngFor="let history of searchHistory$ | async"><a
+              (click)="setSearchTerm(history.searchTerm)">{{history.searchTerm}}</a></li>
+        </ul>
+      </div>
+
+      <div class="flex flex-row space-x-2">
+        <button
+          class="py-3 px-6 w-[100px] rounded-md shadow-md bg-primary-500 text-white hover:-translate-y-1 transition duration-500 ease-linear hover:bg-primary-400"
+          (click)="searchMovie(true)">
+          Search</button>
+        <button
+          class="py-3 px-3 rounded-md shadow-md bg-red-800 text-white hover:-translate-y-1 transition duration-500 ease-linear hover:bg-red-500"
+          (click)="resetSearch()">
+          <i class="fa-solid fa-ban"></i>
+        </button>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="movieSearch && movieSearch.movies.length > 0; else nomovie">
+    <p class="py-2">Showing <span class="font-bold">{{itemStart}}</span> - <span class="font-bold">{{itemEnd}}</span>
+      of <span class="font-bold">{{movieSearch.totalRecords}}</span> movies</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12 justify-items-center w-full">
+      <app-movie-item *ngFor="let movie of movieSearch.movies" [movieItem]="movie"></app-movie-item>
+    </div>
+
+    <div class="join grid grid-cols-12 gap-y-2 py-12 justify-items-center items-center place-content-center">
+      <div *ngFor="let num of getRange(movieSearch.totalRecords); let i = index">
+        <input class="join-item btn btn-square" type="radio" name="options" [ariaLabel]="i + 1"
+          (click)="getPageNumber(i + 1)" [checked]="page === i + 1" />
+      </div>
+    </div>
+
+  </ng-container>
+
+
+
+
+
+  <ng-template #nomovie>
+    <div class="flex flex-col items-center justify-center space-y-4">
+      <img src="../../assets/no-result.png" class="h-[20rem] w-[20rem]" />
+      <p class="font-semibold">No movie available</p>
+    </div>
+
+  </ng-template>
+
+</div>
