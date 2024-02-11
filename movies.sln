@@ -5,25 +5,27 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{12757430-7633-429F-8A26-4E6071CCFDBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.API", "src\Movies.API\Movies.API.csproj", "{3AACFE0D-6E93-4178-A724-7D37A3ABBB17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.API", "src\Movies.API\Movies.API.csproj", "{3AACFE0D-6E93-4178-A724-7D37A3ABBB17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Application", "src\Movies.Application\Movies.Application.csproj", "{62157CF4-A025-4D2E-AC37-6BE553E3D946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Application", "src\Movies.Application\Movies.Application.csproj", "{62157CF4-A025-4D2E-AC37-6BE553E3D946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Infrastructure", "src\Movies.Infrastructure\Movies.Infrastructure.csproj", "{5733FCF4-19C0-49FC-887F-53EA04525E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Infrastructure", "src\Movies.Infrastructure\Movies.Infrastructure.csproj", "{5733FCF4-19C0-49FC-887F-53EA04525E10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Domain", "src\Movies.Domain\Movies.Domain.csproj", "{34DD8E62-8D84-492F-BEB9-E06AFA3C43E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Domain", "src\Movies.Domain\Movies.Domain.csproj", "{34DD8E62-8D84-492F-BEB9-E06AFA3C43E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6F047FBF-F474-4757-8FA0-2D0434F3B111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.UnitTests", "tests\Movies.UnitTests\Movies.UnitTests.csproj", "{D17FE7A3-517E-48DA-BCB2-765CDD9288CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.UnitTests", "tests\Movies.UnitTests\Movies.UnitTests.csproj", "{D17FE7A3-517E-48DA-BCB2-765CDD9288CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D473B83-50E0-40BA-9043-791AA1F83230}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3AACFE0D-6E93-4178-A724-7D37A3ABBB17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,11 +49,17 @@ Global
 		{D17FE7A3-517E-48DA-BCB2-765CDD9288CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D17FE7A3-517E-48DA-BCB2-765CDD9288CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3AACFE0D-6E93-4178-A724-7D37A3ABBB17} = {12757430-7633-429F-8A26-4E6071CCFDBB}
 		{62157CF4-A025-4D2E-AC37-6BE553E3D946} = {12757430-7633-429F-8A26-4E6071CCFDBB}
 		{5733FCF4-19C0-49FC-887F-53EA04525E10} = {12757430-7633-429F-8A26-4E6071CCFDBB}
 		{34DD8E62-8D84-492F-BEB9-E06AFA3C43E2} = {12757430-7633-429F-8A26-4E6071CCFDBB}
 		{D17FE7A3-517E-48DA-BCB2-765CDD9288CE} = {6F047FBF-F474-4757-8FA0-2D0434F3B111}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9DDDE24-6F64-4B93-9277-916048E9F78E}
 	EndGlobalSection
 EndGlobal
