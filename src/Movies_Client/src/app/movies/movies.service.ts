@@ -66,7 +66,7 @@ export class MoviesService {
         searchTerm: searchTerm,
         id: currentSearchHistory[4].id + 1
       })
-      
+
       this.searchHistorySource.next(filteredItem);
     }
   }
