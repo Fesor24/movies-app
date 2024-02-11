@@ -8,14 +8,18 @@
           class="fa-solid fa-right-long text-primary-400 text-xl"></i></p>
     </ng-template>
     <div class="flex flex-col justify-end items-end space-y-2 lg:flex-row lg:space-y-0 space-x-2">
-      <div class="dropdown">
-        <input class="w-[200px] md:w-[280px] h-[30px] rounded-md shadow-md py-6 px-10 focus:outline-primary-700"
-          placeholder="Search movie by title" [(ngModel)]="searchTerm" tabindex="0" />
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-1">
-          <li *ngFor="let history of searchHistory$ | async"><a
-              (click)="setSearchTerm(history.searchTerm)">{{history.searchTerm}}</a></li>
-        </ul>
-      </div>
+      <ng-container *ngIf="searchHistory$ | async as searchHistory">
+        <div class="dropdown">
+          <input class="w-[200px] md:w-[280px] h-[30px] rounded-md shadow-md py-6 px-10 focus:outline-primary-700"
+            placeholder="Search movie by title" [(ngModel)]="searchTerm" tabindex="0" />
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-1"
+          *ngIf="searchHistory.length > 0">
+            <li *ngFor="let history of searchHistory"><a
+                (click)="setSearchTerm(history.searchTerm)">{{history.searchTerm}}</a></li>
+          </ul>
+        </div>
+      </ng-container>
+
 
       <div class="flex flex-row space-x-2">
         <button
@@ -56,7 +60,7 @@
 
   <ng-template #nomovie>
     <div class="flex flex-col items-center justify-center space-y-4">
-      <img src="../../assets/no-result.png" class="h-[20rem] w-[20rem]" />
+      <img src="../../assets/no-result.png" class="h-[16rem] w-[17rem]" />
       <p class="font-semibold">No movie available</p>
     </div>
 
