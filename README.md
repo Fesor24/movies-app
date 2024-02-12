@@ -12,7 +12,7 @@ To run Angular app
 ng serve
 ```
 
-Using docker compose file
+Using docker compose file, build the api service, then the web service, then run the docker file
 
 ```.NET
 docker compose build api
@@ -20,9 +20,8 @@ docker compose build web
 docker compose up -d
 ```
 
+
 Upon successful start of application, you can visit the web using this url
 ```
 http://localhost:4200
 ```
-
-We build the api service, then the web service, then we start the services
