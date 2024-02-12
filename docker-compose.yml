@@ -5,7 +5,7 @@ services:
         context: .
         dockerfile: src/Movies.API/Dockerfile
     environment:
-        - ASPNETCORE_URLS=http://+80
+        - ASPNETCORE_URLS=http://+:80
         - Imdb_BaseUrl=http://www.omdbapi.com/
         - Imdb_ApiKey=a38ffc7e
     ports:
