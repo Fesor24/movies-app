@@ -1,8 +1,14 @@
 <div class="container mt-8 px-12" *ngIf="movieDetail; else nomovie">
-  <div class="flex items-center content-between w-[600px]">
-    <h3 class="font-bold text-xl">{{movieDetail.title}}</h3>
-    <p>Back to Search</p>
+
+  <div class="flex space-x-3 text-red-400 items-center mb-3 cursor-pointer" routerLink="/movies">
+    <i class="fa-solid fa-left-long"></i>
+    <h4>Back to search</h4>
+
   </div>
+
+
+
+  <h3 class="font-bold text-xl">{{movieDetail.title}}</h3>
 
   <div class="flex space-x-5">
     <div class="py-3">
@@ -50,7 +56,11 @@
   <div class="flex flex-col items-center justify-center h-[32rem] space-y-2">
     <img src="../../../assets/no-result.png" class="h-[15rem] w-[17rem]" />
     <p class="font-semibold text-xl">No details for this movie found</p>
-    <p [routerLink]="'/movies'">Back to search</p>
+    <div class="flex space-x-3 text-red-400 items-center mb-3 cursor-pointer" routerLink="/movies">
+      <i class="fa-solid fa-left-long"></i>
+      <h4>Back to search</h4>
+
+    </div>
   </div>
 
 </ng-template>
