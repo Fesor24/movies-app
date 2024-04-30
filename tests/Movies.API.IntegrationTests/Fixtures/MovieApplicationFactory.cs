@@ -17,7 +17,7 @@ public class MovieApplicationFactory : WebApplicationFactory<IApiMarker>, IAsync
 
         _apiServer.SearchMovies();
 
-        //_apiServer.GetMovieByImdbId();
+        _apiServer.GetMovieByImdbId();
 
         return Task.CompletedTask;
     }
