@@ -48,7 +48,7 @@ public class MovieService : IMovieService
 
             var errorDetails = await response.Content.ReadAsStringAsync();
 
-            return new Error("GET_MOVIE_BY_ID", $"{errorMessage} \n {errorDetails}");
+            return new Error("SEARCH_MOVIES", $"{errorMessage} \n {errorDetails}");
         }
 
         var movies = await response.Content.ReadFromJsonAsync<MovieSearchResult>();
