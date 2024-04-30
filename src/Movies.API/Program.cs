@@ -3,8 +3,16 @@ using Movies.API.Middleware;
 using Movies.Application;
 using Movies.Domain.Models;
 using Movies.Infrastructure;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .MinimumLevel.Debug()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSerilog();
 
 builder.Services.AddInfrastructureServices()
     .AddApplicationServices();
@@ -25,6 +33,8 @@ builder.Services.AddCors(opt =>
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 app.UseCors("CorsPolicy");
 
