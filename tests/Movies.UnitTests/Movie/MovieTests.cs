@@ -30,13 +30,13 @@ public class MovieTests
         _mapper = new Mapper(mockMapper);
     }
 
-    [Fact]
-    public async Task SearchMovies_WithValidSearchTerm_ReturnsListOfMovies()
+    [Theory]
+    [InlineData("spiderman")]
+    [InlineData("superman")]
+    public async Task SearchMovies_WithValidSearchTerm_ReturnsListOfMovies(string searchTerm)
     {
         var movies = _fixture.CreateMany<MovieModel>(10)
             .ToList();
-
-        string searchTerm = _fixture.Create<string>();
 
         int page = _fixture.Create<int>();
 
