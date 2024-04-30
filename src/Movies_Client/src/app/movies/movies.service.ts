@@ -71,6 +71,16 @@ export class MoviesService {
     }
   }
 
+  loadSearchHistory(){
+    const searchHistory = localStorage.getItem('sh');
+
+    if(searchHistory){
+      const history = JSON.parse(searchHistory) as ISearchHistory[];
+
+      this.searchHistorySource.next(history);
+    }
+  }
+
   getSearchHistoryValue() {
     return this.searchHistorySource.value;
   }
