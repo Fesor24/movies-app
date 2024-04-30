@@ -18,8 +18,6 @@ internal class MoviesApiServer : IDisposable
 
     public void Start() => _server = WireMockServer.Start(new WireMockServerSettings
     {
-        Logger = new WireMockConsoleLogger(),
-        StartAdminInterface = true,
         Urls = new[] { "http://localhost:59000" },
     });
 
