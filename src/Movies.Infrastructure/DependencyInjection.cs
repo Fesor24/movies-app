@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Movies.Domain.Services;
-using Movies.Domain.Services.Common;
+using Movies.Application.Services;
 using Movies.Infrastructure.Services;
-using Movies.Infrastructure.Services.Common;
 
 namespace Movies.Infrastructure;
 public static class DependencyInjection
@@ -11,9 +9,10 @@ public static class DependencyInjection
     {
         services.AddHttpClient();
 
-        services.AddScoped<IHttpClient, CustomHttpClient>();
-
-        services.AddScoped<IMovieService, MovieService>();
+        services.AddHttpClient<IMovieService, MovieService>(client =>
+        {
+            client.BaseAddress = new Uri("http://www.omdbapi.com");
+        });
 
         return services;
     }
