@@ -3,7 +3,6 @@ using Bogus;
 using Movies.Domain.Models;
 using Movies.Domain.Primitives;
 using System.Text.Json;
-using WireMock.Logging;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
@@ -13,13 +12,9 @@ namespace Movies.API.IntegrationTests.Utils;
 internal class MoviesApiServer : IDisposable
 {
     private WireMockServer _server;
-
     public string Url => _server.Url;
 
-    public void Start() => _server = WireMockServer.Start(new WireMockServerSettings
-    {
-        Urls = new[] { "http://localhost:59000" },
-    });
+    public void Start() => _server = WireMockServer.Start();
 
     public void SearchMovies()
     {
@@ -55,10 +50,12 @@ internal class MoviesApiServer : IDisposable
 
         var movie = fixture.Create<MovieItemSearchResult>();
 
-        string result = JsonSerializer.Serialize(new Result<MovieItemSearchResult>(movie));
+        movie.ImdbId = "12345678";
+
+        string result = JsonSerializer.Serialize(movie);
 
         _server.Given(Request.Create()
-            .WithPath("?apiKey=003939&i=928263637289")
+            .WithParam("i", movie.ImdbId)
             .UsingGet())
             .RespondWith(Response.Create()
             .WithBody(result)
