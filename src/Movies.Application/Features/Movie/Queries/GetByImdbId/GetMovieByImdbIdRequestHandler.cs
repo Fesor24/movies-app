@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Movies.Application.Services;
 using Movies.Domain.Primitives;
-using Movies.Domain.Services;
 
 namespace Movies.Application.Features.Movie.Queries.GetByImdbId;
 internal sealed class GetMovieByImdbIdRequestHandler : IRequestHandler<GetMovieByImdbIdRequest, 
-    Result<GetMovieResponse, Error>>
+    Result<GetMovieResponse>>
 {
     private readonly IMovieService _movieService;
     private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ internal sealed class GetMovieByImdbIdRequestHandler : IRequestHandler<GetMovieB
         _mapper = mapper;
     }
 
-    public async Task<Result<GetMovieResponse, Error>> Handle(GetMovieByImdbIdRequest request, 
+    public async Task<Result<GetMovieResponse>> Handle(GetMovieByImdbIdRequest request, 
         CancellationToken cancellationToken)
     {
         var res = await _movieService.GetMovieByImdbId(request.ImdbId);
