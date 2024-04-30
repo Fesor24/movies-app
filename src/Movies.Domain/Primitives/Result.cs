@@ -7,9 +7,9 @@ public class Result
         //Error = Error.None;
     }
 
-    protected Result(bool isSuccess, Error error)
+    protected Result(Error error)
     {
-        IsSuccess = isSuccess;
+        IsSuccess = false;
         Error = error;
     }
 
@@ -19,5 +19,5 @@ public class Result
     public Error Error { get; private set; }
 
     public static Result Success => new();
-    public static Result Failure(Error error) => new(false, error);
+    public static Result Failure(Error error) => new(error);
 }
