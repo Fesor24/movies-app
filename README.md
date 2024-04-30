@@ -22,7 +22,7 @@ docker compose up -d
 ```
 
 
-Upon successful start of application, you can visit the web using this url. Please keep in mind that the cient app does take a little longer to start up. So when you visit the link below in the browser and nothing comes up, you try again. However, this only occurs if you attempt to run it with docker.
+Upon successful run, you can visit the web using the URL below. The cient app does take a little longer to start, so refresh the page if you do not see anything. However, this only occurs if you attempt to run it with docker.
 ```
 http://localhost:4200
 ```
