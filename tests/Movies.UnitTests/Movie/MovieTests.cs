@@ -2,29 +2,25 @@
 using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
-using Microsoft.Extensions.Options;
 using Moq;
 using Movies.Application.Features.Movie.Queries.GetByImdbId;
 using Movies.Application.Features.Movie.Queries.Search;
 using Movies.Application.Mappings;
+using Movies.Application.Services;
 using Movies.Domain.Models;
-using Movies.Domain.Services;
-using Movies.Domain.Services.Common;
-using Movies.Infrastructure.Services;
+using Movies.Domain.Primitives;
 using MovieModel = Movies.Domain.Models.Movie;
 
 namespace Movies.UnitTests.Movie;
 public class MovieTests
 {
     private readonly Mock<IMovieService> _movieService;
-    private readonly Mock<IHttpClient> _httpClient;
     private readonly IMapper _mapper;
     private readonly Fixture _fixture;
     public MovieTests()
     {
         _fixture = new Fixture();
         _movieService = new Mock<IMovieService>();
-        _httpClient = new Mock<IHttpClient>();
 
         var mockMapper = new MapperConfiguration(mc =>
         {
@@ -35,12 +31,14 @@ public class MovieTests
     }
 
     [Fact]
-    public async Task SearchMovies_WithValidSearchTerm_ReturnsOkResult()
+    public async Task SearchMovies_WithValidSearchTerm_ReturnsListOfMovies()
     {
         var movies = _fixture.CreateMany<MovieModel>(10)
             .ToList();
 
-        string searchTerm = It.IsAny<string>();
+        string searchTerm = _fixture.Create<string>();
+
+        int page = _fixture.Create<int>();
 
         var movieSearchResult = new MovieSearchResult
         {
@@ -49,10 +47,12 @@ public class MovieTests
             TotalResults = movies.Count.ToString()
         };
 
-        _movieService.Setup(mvs => mvs.Search(searchTerm))
-            .ReturnsAsync(movieSearchResult);
+        var res = new Result<MovieSearchResult>(movieSearchResult);
 
-        var request = new SearchMovieRequest(searchTerm);
+        _movieService.Setup(mvs => mvs.Search(searchTerm, page))
+            .ReturnsAsync(new Result<MovieSearchResult>(movieSearchResult));
+
+        var request = new SearchMovieRequest(searchTerm, page);
 
         var handler = new SearchMovieRequestHandler(_movieService.Object, _mapper);
 
@@ -67,6 +67,26 @@ public class MovieTests
         result.Value.Should().BeOfType<SearchMovieResponse>();
 
         result.Value.TotalRecords.Should().Be(result.Value.Movies.Count);
+    }
+
+    [Fact]
+    public async Task SearchMovie_WithInvalidSearhTerm_ReturnsValidationError()
+    {
+        string searchTerm = string.Empty;
+
+        int page = _fixture.Create<int>();
+
+        var request = new SearchMovieRequest(searchTerm, page);
+
+        var handler = new SearchMovieRequestHandler(_movieService.Object, default);
+
+        var result = await handler.Handle(request, default);
+
+        result.IsFailure.Should().BeTrue();
+
+        result.Error.GetType().Should().Be(typeof(ValidationError));
+
+        result.Error.Message.Should().Be("Search term can not be null or empty");
     }
 
     [Fact]
@@ -90,37 +110,6 @@ public class MovieTests
         result.Value.Should().NotBeNull();
 
         result.Value.Should().BeOfType<GetMovieResponse>();
-               
-    }
 
-    [Fact]
-    public async Task GetMovie_WithIncorrectImdbId_ReturnsError()
-    {
-        var movieResult = _fixture.Create<MovieItemSearchResult>();
-
-        movieResult.Response = "False";
-
-        _httpClient.Setup(hc => hc.SendAsync<MovieItemSearchResult, MovieSearchErrorResult>(
-            It.IsAny<Movies.Domain.Shared.HttpRequestMessage>()))
-            .ReturnsAsync(movieResult);
-
-        var optionsImdbCreds = new Mock<IOptions<ImdbCredentials>>();
-
-        optionsImdbCreds.Setup(op => op.Value)
-            .Returns(new ImdbCredentials
-            {
-                ApiKey = "",
-                BaseUrl = ""
-            });
-
-        var movieService = new MovieService(_httpClient.Object, optionsImdbCreds.Object);
-
-        var result = await movieService.GetMovieByImdbId(It.IsAny<string>());
-
-        using var _ = new AssertionScope();
-
-        result.IsFailure.Should().BeTrue();
-
-        result.Error.Should().NotBeNull();
     }
 }
