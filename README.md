@@ -8,12 +8,12 @@ To run .NET app
 ```.NET
 dotnet watch run
 ```
-To run Angular app
+To run Angular app, run the command in the src/Movies_Client directory in a command prompt/termainal
 ```Angular
 ng serve
 ```
 
-Using docker compose file, build the api service, then the web service, then run the docker file. This process might take a while
+Using docker compose file, build the api service, then the web service, then run the docker file. This process might take a while. At the root of the project where the docker-compose.yml file is, open a command prompt and run the following commands
 
 ```.NET
 docker compose build api
