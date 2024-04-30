@@ -69,6 +69,8 @@ export class MoviesService {
 
       this.searchHistorySource.next(filteredItem);
     }
+
+    localStorage.setItem('sh', JSON.stringify(this.searchHistorySource.value));
   }
 
   loadSearchHistory(){
