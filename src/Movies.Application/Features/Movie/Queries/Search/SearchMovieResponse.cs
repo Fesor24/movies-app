@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Movies.Application.Features.Movie.Queries.Search;
+﻿namespace Movies.Application.Features.Movie.Queries.Search;
 public class SearchMovieResponse
 {
     public int TotalRecords { get; set; }
