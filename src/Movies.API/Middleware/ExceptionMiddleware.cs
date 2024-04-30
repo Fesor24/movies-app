@@ -27,8 +27,8 @@ public class ExceptionMiddleware
             context.Response.ContentType = "application/json";
 
             var error = _env.IsDevelopment() ?
-                new Error("500", ex.Message, ex.StackTrace) :
-                new Error("500", ex.Message);
+                new Error("INTERNAL_SERVER_ERROR", $"{ex.Message} \n {ex.StackTrace}") :
+                new Error("INTERNAL_SERVER_ERROR", ex.Message);
 
             var jsonOptions = new JsonSerializerOptions
             {
@@ -37,7 +37,6 @@ public class ExceptionMiddleware
 
             await context.Response
                 .WriteAsync(JsonSerializer.Serialize(error, jsonOptions));
-
         }
     }
 }
