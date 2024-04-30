@@ -30,6 +30,7 @@ export class MoviesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.movieService.loadSearchHistory();
     this.searchHistory$ = this.movieService.searchHistory$;
   }
 
