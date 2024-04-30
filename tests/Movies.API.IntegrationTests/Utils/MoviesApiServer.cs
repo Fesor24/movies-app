@@ -1,12 +1,10 @@
 ﻿using AutoFixture;
 using Bogus;
 using Movies.Domain.Models;
-using Movies.Domain.Primitives;
 using System.Text.Json;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
-using WireMock.Settings;
 
 namespace Movies.API.IntegrationTests.Utils;
 internal class MoviesApiServer : IDisposable
